@@ -1,5 +1,8 @@
 package server.side;
 
+import cotecchio.Box;
+import cotecchio.ServerMessage;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -13,13 +16,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import server.side.models.Box;
-import server.side.models.ServerMessage;
-
 public class Helper {
-	
-	
-	
 	public static ServerMessage unmarshall(String data) throws JAXBException{
 		JAXBContext jc = JAXBContext.newInstance(ServerMessage.class);
 		
@@ -48,7 +45,7 @@ public class Helper {
 		List<Box> realList;
 		
 		public WrapperList(){
-			realList = new ArrayList<Box>();
+			realList = new ArrayList<>();
 		}
 		public void clear() {
 			realList.clear();			

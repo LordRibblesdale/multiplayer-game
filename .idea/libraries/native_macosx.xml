@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="native-macosx">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/MultiPlayerClient/src/lib/native-macosx" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>

@@ -1,5 +1,8 @@
 package client.side;
 
+import cotecchio.Box;
+import cotecchio.ServerMessage;
+
 import java.io.StringReader;
 
 import java.io.StringWriter;
@@ -13,9 +16,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import client.side.models.Box;
-import client.side.models.ServerMessage;
-
 /**
  * 
  * @author Titas Skrebe
@@ -24,12 +24,10 @@ import client.side.models.ServerMessage;
  * 
  */
 public class Helper {
-	
-	
 	/**
-	 * Marshalls ServerMessage class to a string.
+	 * Marshalls cotecchio.ServerMessage class to a string.
 	 * 
-	 * @param sm ServerMessage class
+	 * @param sm cotecchio.ServerMessage class
 	 * @return an XML string 
 	 * @throws JAXBException
 	 */
@@ -37,11 +35,11 @@ public class Helper {
 	public static String marshall(ServerMessage sm) throws JAXBException {
 		
 		JAXBContext jc = JAXBContext.newInstance(ServerMessage.class);
-        Marshaller marshaller = jc.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-        
-        StringWriter sw = new StringWriter();
-        marshaller.marshal(sm, sw);
+		Marshaller marshaller = jc.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+
+		StringWriter sw = new StringWriter();
+		marshaller.marshal(sm, sw);
         
 		return sw.toString();
 	}
@@ -70,11 +68,7 @@ public class Helper {
 	
 	@XmlRootElement
 	@XmlAccessorType(XmlAccessType.FIELD)
-	public static class WrapperList{
-		
+	public static class WrapperList {
 		List<Box> realList;
-		public WrapperList(){}
-		
 	}
-
 }

@@ -5,15 +5,14 @@ import static org.lwjgl.opengl.GL11.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import cotecchio.Box;
+import cotecchio.Card;
+import cotecchio.CharacterObj;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-
-import client.side.models.Box;
-import client.side.models.Bullet;
-import client.side.models.CharacterObj;
 
 /**
  * 
@@ -39,7 +38,7 @@ public class Main {
 	private TcpConnection connections; // establishing TCP connection
 
 	private CharacterObj character; // data about the main character
-	private List<Bullet> bullets; // bullets shot in every frame, also to server
+	private List<Card> cards; // bullets shot in every frame, also to server
 
 	private List<Box> obstacles;
 	private List<Box> movingObjects; // all players and bullets. We get this from server
@@ -52,8 +51,7 @@ public class Main {
 	private int client_port_udp;
 	
 	public static void main(String[] args) {
-		
-		if (args.length != 3){
+		if (args.length != 3) {
 			throw new IllegalArgumentException("Bad input. You need [REMOTE IP] [REMOTE TCP PORT] [LOCAL UDP PORT or -1 for random port]");
 		}
 		
@@ -89,7 +87,7 @@ public class Main {
 	/** Setting up screen, establishing connections (TCP, UPD) with server, etc. */
 	private void init() {
 
-		connections = new TcpConnection(this, server_ip, server_port_tcp);
+		connections = new TcpConnection(server_ip, server_port_tcp);
 
 		if ((ID = connections.getIdFromServer()) == -1) {
 			System.err.println("cant get id for char");
@@ -98,7 +96,7 @@ public class Main {
 		obstacles = connections.getMapDetails();
 
 		character = new CharacterObj(0, 0, ID);
-		bullets = new ArrayList<Bullet>();
+		cards = new ArrayList<Card>();
 		camera = new Camera(0, 0);
 		movingObjects = new ArrayList<Box>();
 
@@ -165,9 +163,9 @@ public class Main {
 	/** Function to send main characters data to server */
 	private void sendCharacter() {
 
-		character.newBullets = bullets;
+		character.newCards = cards;
 		connections.sendUpdatedVersion(character);
-		bullets.clear();
+		cards.clear();
 	}
 
 	/** Closing game */
@@ -193,9 +191,7 @@ public class Main {
 			}
 		}
 	}
-	
 
-	
 	private boolean up = false;
 	private boolean down = false;
 	private boolean right = false;
@@ -221,7 +217,7 @@ public class Main {
 					if (xmouse > xmain) {
 						pnx = -1;
 					}
-					bullets.add(new Bullet(xmain, ymain, k, c, pnx));
+					cards.add(new Card(xmain, ymain, k, c, pnx));
 				}
 			}
 			

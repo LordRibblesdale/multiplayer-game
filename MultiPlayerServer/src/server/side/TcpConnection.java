@@ -1,5 +1,6 @@
 package server.side;
 
+import cotecchio.ServerMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,8 +9,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 import javax.xml.bind.JAXBException;
-
-import server.side.models.ServerMessage;
 
 /**
  * This class establishes TCP connection and listens to client side
@@ -37,7 +36,7 @@ class TcpConnection implements Runnable{
 		try(ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 				ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream())){
 			
-			while(true){
+			while(true) {
 				String msg = (String)ois.readObject();
 				ServerMessage sm;
 				try {

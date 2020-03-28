@@ -1,5 +1,9 @@
 package client.side;
 
+import cotecchio.Box;
+import cotecchio.CharacterObj;
+import cotecchio.ServerMessage;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,11 +11,6 @@ import java.net.Socket;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
-
-import client.side.models.Box;
-import client.side.models.CharacterObj;
-import client.side.models.ServerMessage;
-
 
 class TcpConnection {
 
@@ -30,10 +29,10 @@ class TcpConnection {
 	
 	private Socket socket;
 
-	TcpConnection(Main main, String ip, int port) {
-		
+	TcpConnection(String ip, int port) {
 		SERVER_PORT_TCP = port;
 		SERVER_IP = ip;
+
 		try {
 			socket = new Socket(SERVER_IP, SERVER_PORT_TCP);
 			oos = new ObjectOutputStream(socket.getOutputStream());
@@ -45,7 +44,6 @@ class TcpConnection {
 	
 	/** Gets unique ID for player **/
 	long getIdFromServer() {
-		
 		try {
 			ServerMessage sm = new ServerMessage(GET_ID);
 			String data = Helper.marshall(sm);

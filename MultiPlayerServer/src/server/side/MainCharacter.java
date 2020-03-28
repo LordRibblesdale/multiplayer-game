@@ -1,5 +1,8 @@
 package server.side;
 
+import cotecchio.Box;
+import cotecchio.Card;
+import cotecchio.CharacterObj;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,12 +11,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
-import server.side.models.Box;
-import server.side.models.Bullet;
-import server.side.models.CharacterObj;
-
-public class MainCharacter{
-
+public class MainCharacter {
 	private static final int MAP_WIDTH = 1500;
 	private static final int MAP_HEIGTH = 900;
 	
@@ -43,7 +41,6 @@ public class MainCharacter{
 	 * to simulate game.
 	 */
 	MainCharacter(CharacterObj data) {
-		
 		x = 0;
 		y = 0;
 		
@@ -64,7 +61,7 @@ public class MainCharacter{
 			
 		xp = 100;
 		
-		addBullets(data.newBullets);
+		addBullets(data.newCards);
 	}
 	
 	/**
@@ -77,18 +74,18 @@ public class MainCharacter{
 		
 		xVel = data.xVel;
 		yVel = data.yVel;
-		addBullets(data.newBullets);
+		addBullets(data.newCards);
 	}	
 
 	/**
 	 * Function to add bullets that we get from client side to corresponding character.
-	 * @param newBullets New bullets.
+	 * @param newCards New bullets.
 	 */
 	
-	private void addBullets(List<Bullet> newBullets){
-		if (newBullets == null)	return;
+	private void addBullets(List<Card> newCards){
+		if (newCards == null)	return;
 		
-		for (Bullet sb : newBullets){
+		for (Card sb : newCards){
 			bullets.add(new ServerBullet(sb.x, sb.y, sb.k, sb.c, sb.pn, r, g, b));
 		}
 	}
@@ -98,7 +95,7 @@ public class MainCharacter{
 	 * Deletes bullet if there is a collision, changes XPs of enemies.
 	 * @param tiles 	Simple obstacles.
 	 * @param fullCharacters	All players on-line.
-	 * @return Returns main character and bullets in a Box class form. Box class contains
+	 * @return Returns main character and bullets in a cotecchio.Box class form. cotecchio.Box class contains
 	 * only information necessary to render objects on the client side.
 	 */
 	
@@ -142,7 +139,7 @@ public class MainCharacter{
 		}
 		
 		//if xp is below 1 we reset player to its initial position
-		if (xp < 1){
+		if (xp < 1) {
 			x = y = 0;
 			xp = 100;
 		}

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="native-linux">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/MultiPlayerClient/src/lib/native-linux" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>

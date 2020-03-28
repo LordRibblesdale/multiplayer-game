@@ -1,13 +1,10 @@
 package server.side;
 
-
+import cotecchio.Box;
+import cotecchio.CharacterObj;
 import server.side.Helper.WrapperList;
-import server.side.models.Box;
-import server.side.models.CharacterObj;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -17,9 +14,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +22,6 @@ import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.xml.bind.JAXBException;
-
 
 public class Main {
 
@@ -59,17 +53,16 @@ public class Main {
 		main.start();
 	}
 	
-	public Main(int tcpPort){
-		
+	public Main(int tcpPort) {
 		SERVER_PORT_TCP = tcpPort;
 		activeClients = new CopyOnWriteArrayList<IpPort>();
 		tiles = new WrapperList();
 		gamePlay = new WrapperList();
 		udpSend = new UdpConnectionsSend();
-		fullCharacters = new Vector<MainCharacter>();
+		fullCharacters = new Vector<>();
 	}
 
-	private void start(){
+	private void start() {
 			
 		gameStateRefresher();
 
@@ -87,20 +80,15 @@ public class Main {
 			while((clientSocket = serverSocket.accept()) != null){
 				new Thread(new TcpConnection(this, clientSocket)).start();
 			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	
 	private void gameStateRefresher(){
-		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
-			
 			@Override
 			public void run() {
 				updateGamePlay();
